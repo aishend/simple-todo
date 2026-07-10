@@ -36,12 +36,19 @@ function setTaskCompleted(taskId, completed) {
   }
 }
 
-function createTaskListItem(task) {
-  const item = document.createElement("li");
+function deleteTask(taskId) {
+  const taskIndex = tasks.findIndex(({ id }) => id === taskId);
+
+  if (taskIndex === -1) {
+    return;
+  }
+
+  tasks.splice(taskIndex, 1);
+  renderTasks();
+}
+
+function createCompletionCheckbox(task) {
   const checkbox = document.createElement("input");
-  const title = document.createElement("h3");
-  const description = document.createElement("p");
-  const estimatedTime = document.createElement("span");
 
   checkbox.type = "checkbox";
   checkbox.checked = task.completed;
@@ -50,15 +57,42 @@ function createTaskListItem(task) {
     `Toggle completion for task: ${task.title}`,
   );
 
-  title.textContent = task.title;
-  description.textContent = task.description;
-  estimatedTime.textContent = `${task.estimatedTime} minutes`;
-
   checkbox.addEventListener("change", (event) => {
     setTaskCompleted(task.id, event.currentTarget.checked);
   });
 
-  item.append(checkbox, title, description, estimatedTime);
+  return checkbox;
+}
+
+function createDeleteButton(task) {
+  const button = document.createElement("button");
+
+  button.type = "button";
+  button.className = "delete-button";
+  button.textContent = "Delete";
+  button.setAttribute("aria-label", `Delete task: ${task.title}`);
+  button.addEventListener("click", () => deleteTask(task.id));
+
+  return button;
+}
+
+function createTaskListItem(task) {
+  const item = document.createElement("li");
+  const title = document.createElement("h3");
+  const description = document.createElement("p");
+  const estimatedTime = document.createElement("span");
+
+  title.textContent = task.title;
+  description.textContent = task.description;
+  estimatedTime.textContent = `${task.estimatedTime} minutes`;
+
+  item.append(
+    createCompletionCheckbox(task),
+    title,
+    description,
+    estimatedTime,
+    createDeleteButton(task),
+  );
 
   return item;
 }
