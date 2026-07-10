@@ -33,9 +33,9 @@ function createTaskListItem(task) {
     const description = document.createElement("p");
     const estimatedTime = document.createElement("span");
 
-    title.textContent = task.title;
-    description.textContent = task.description;
-    estimatedTime.textContent = String(task.estimatedTime);
+    title.textContent = task.title.trim();
+    description.textContent = task.description.trim();
+    estimatedTime.textContent = String(task.estimatedTime).trim() + " minutes";
 
     item.append(title, description, estimatedTime);
 
@@ -84,6 +84,12 @@ function showError(validation) {
     estimatedTimeErrorElement.textContent = validation.errors.estimatedTime;
 }
 
+function clearForm() {
+    titleInput.value = "";
+    descriptionInput.value = "";
+    estimatedTimeInput.value = "";
+}
+
 function handleTaskFormSubmit(event) {
     event.preventDefault();
     const data = readTaskForm();
@@ -93,6 +99,7 @@ function handleTaskFormSubmit(event) {
         const task = createTask(data);
         tasks.push(task);
         renderTasks();
+        clearForm();
     }
 }
 
