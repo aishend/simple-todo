@@ -45,10 +45,46 @@ function renderTasks() {
   taskList.replaceChildren(...items);
 }
 
+function formDataValid(data) {
+  const title = data.title.trim();
+  const estimatedTimeText = data.estimatedTime.trim();
+  const estimatedTime = Number(estimatedTimeText);
+  const errors = {
+    title: "",
+    estimatedTime: "",
+  };
+
+  if (title === "") {
+    errors.title = "Title is required.";
+  }
+
+  if (estimatedTimeText === "") {
+    errors.estimatedTime = "Estimated time is required.";
+  } 
+  else if (!Number.isFinite(estimatedTime)) {
+    errors.estimatedTime = "Estimated time must be a number.";
+  } 
+  else if (estimatedTime < 1) {
+    errors.estimatedTime = "Estimated time must be at least 1 minute.";
+  }
+
+  return {
+    valid: errors.title === "" && errors.estimatedTime === "",
+    errors,
+  };
+}
+
 function handleTaskFormSubmit(event) {
   event.preventDefault();
+  const data = readTaskForm();
+  const validation = formDataValid(data);
 
-  const task = createTask(readTaskForm());
+  if (!validation.valid) {
+    console.error("Invalid task data:", validation.errors);
+    return;
+  }
+
+  const task = createTask(data);
   tasks.push(task);
   renderTasks();
 }
