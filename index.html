@@ -1,53 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
 </head>
+
 <body>
-  <main>
-    <h1>Task List</h1>
+    <main>
+        <h1>Task List</h1>
 
-    <form id="task-form">
-      <div>
-        <label for="task-title">Title</label>
-        <input
-          id="task-title"
-          name="title"
-          type="text"
-          placeholder="Write the task title"
-        />
-      </div>
+        <form id="task-form">
+            <div>
+                <label for="task-title">Title</label>
+                <input id="task-title" name="title" type="text" placeholder="Write the task title" />
+                <p id="title-error"></p>
+            </div>
 
-      <div>
-        <label for="task-description">Description</label>
-        <textarea
-          id="task-description"
-          name="description"
-          placeholder="Write the task description"
-        ></textarea>
-      </div>
+            <div>
+                <label for="task-description">Description</label>
+                <textarea id="task-description" name="description" placeholder="Write the task description"></textarea>
+            </div>
 
-      <div>
-        <label for="task-estimated-time">Estimated time</label>
-        <input
-          id="task-estimated-time"
-          name="estimatedTime"
-          type="number"
-          min="1"
-          placeholder="Minutes"
-        />
-      </div>
+            <div>
+                <label for="task-estimated-time">Estimated time</label>
+                <input id="task-estimated-time" name="estimatedTime" type="number" min="1" placeholder="Minutes" />
+                <p id="estimated-time-error"></p>
+            </div>
 
-      <button type="submit">Add task</button>
-    </form>
+            <button type="submit">Add task</button>
+        </form>
 
-    <p id="empty-message">There are no tasks yet.</p>
+        <p id="empty-message">There are no tasks yet.</p>
 
-    <ul id="task-list"></ul>
-  </main>
+        <ul id="task-list"></ul>
+    </main>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
